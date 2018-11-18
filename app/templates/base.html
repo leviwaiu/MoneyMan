@@ -1,0 +1,37 @@
+<html>
+    <head>
+        {% if title %}
+        <title>{{title}} - MoneyMan</title>
+        {% else %}
+        <title>Welcome to MoneyMan!</title>
+        {% endif %}
+        <style>
+            body  {
+                background-image:url('background.jpg');
+            }
+            table {
+                width:70%
+            }
+            td {
+                border-collapse:collapse;
+                border: 1px solid black;
+            }
+        </style>
+        {% block head %}{% endblock %}
+    </head>
+    <body>
+        <div>MoneyMan: 
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('control') }}">Control</a>
+        <a href="{{ url_for('monitor') }}">Monitor</a>
+        {% if current_user.is_anonymous %}
+        <a href="{{ url_for('login') }}"">Login</a>
+        {% else %}
+        <a href="{{ url_for('user', username=current_user.username) }}">Profile</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+        {% endif %}
+        </div>
+        <hr>
+        {%block content%}{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Hi, {{current_user.first_name}} {{current_user.last_name}}!</h1>
+    <div>Your Customer ID: {{current_user.account_id}}</div>
+    <p>Your Current Balance in accounts:</p>
+    {% for account in current_user.accounts %}
+    <div>{{account.nickname}}: £{{account.balance}}</div>
+    {% endfor %}
+    </form>
+    
+{% endblock %}

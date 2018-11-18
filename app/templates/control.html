@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.name.label }}<br>
+            {{ form.name(size=32) }}<br>
+            {% for error in form.name.errors %}
+            <span style="color:red;"[{{ error }}]</span
+            {% endfor %}
+        </p>
+        <p>{{ form.control() }} {{ form.control.label }}</p>
+        <p>{{ form.ctrl_amount.label }}{{ form.ctrl_amount() }}</p>
+        <p>{{ form.submit() }}</p>
+    </form>
+    <h3>Categories you have</h3>
+    <table width="600px">
+        <tr><th>Category Name</th><th>Budget Set</th><th>Budget Remaining</th>
+    {% for cat in current_user.categories %}
+        <tr>
+            <td>{{cat.name}}</td>{% if cat.remaining != None %}<td>£{{cat.constraint}}</td><td>£{{cat.remaining}}{% else %}<td>No Limit</td><td>No Limit</td>{% endif %}</td>
+        </tr>
+    {% endfor %}
+    </table>
+    
+{% endblock %}

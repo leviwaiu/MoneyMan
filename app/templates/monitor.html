@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+    
+    <h1>Your Current Spending</h1>
+    <h3>Uncategorised Items</h3>
+    <table>
+        <tr><th>Time of Transaction</th><th>Name of Recipient</th><th>Amount Paid</th><th>Category</th></tr>
+    {% for item in current_user.transactions %}
+    {% if item.category_id == None %}
+        <tr><td>{{item.time}}</td><td>{{item.recipient}}</td><td>£ {{item.amount}}</td><td>
+        <form action="" method="post">
+        {{form.csrf_token()}}
+        {{ form.item_id(value=item.id)}}
+        {{ form.transactionCat() }}
+        {{ form.submit() }}</td>
+        </form></tr>
+    {% endif %}
+    {% endfor %}
+    </table>
+    <h3>Categorised Transactions</h3>
+    <table>
+        <tr><th>Time of Transaction</th><th>Name of Recipient</th><th>Amount Paid</th><th>Category</th></tr>
+    {% for item in current_user.transactions %}
+    {% if item.category_id != None %}
+        <tr><td>{{item.time}}</td><td>{{item.recipient}}</td><td>£ {{item.amount}}</td><td>{{item.category.name}}</td></tr>
+    {% endif %}
+    {% endfor %}
+    </table>
+    
+    
+{% endblock %}
